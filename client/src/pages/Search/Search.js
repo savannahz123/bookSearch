@@ -3,7 +3,7 @@ import Jumbotron from "../../Components/Jumbotron";
 import { Input, FormBtn } from "../../Components/SearchForm"
 import { Container, Col, Row } from "../../Components/Grid";
 import google from "../../utils/google";
-import SearchResult from "../../Components/SearchResult";
+import SearchResult, { SaveBtn } from "../../Components/SearchResult";
 
 class Search extends Component {
     state = {
@@ -78,7 +78,13 @@ class Search extends Component {
                                                 <li>{book.volumeInfo.description}</li>
                                                 <li><a href={book.volumeInfo.previewLink}>Preview</a></li>
                                             </ul>
-                                            <button>Save me</button>
+                                            <SaveBtn id={book.id}
+                                                     title={book.volumeInfo.title}
+                                                     author={book.volumeInfo.authors}
+                                                     description={book.volumeInfo.description}
+                                                     imageLink={book.volumeInfo.imageLinks?book.volumeInfo.imageLinks.thumbnail:""}
+                                                     previewLink={book.volumeInfo.previewLink}>Save Me
+                                            </SaveBtn>
                                         </Col>
                                     </Row>
                                 );
