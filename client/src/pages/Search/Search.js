@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Jumbotron from "../../Components/Jumbotron";
 import { Input, FormBtn } from "../../Components/SearchForm"
-import { Container } from "../../Components/Grid";
+import { Container, Col, Row } from "../../Components/Grid";
+import google from "../../utils/google";
+import SearchResult from "../../Components/SearchResult";
 
 class Search extends Component {
     state = {
@@ -22,10 +24,17 @@ class Search extends Component {
         });
     };
 
-    handleFormSubmit = event => {
+    handleFormSubmit = async event => {
         event.preventDefault();
 
         // call google API
+        await google.getBooksByTitleAndAuthor(this.state.title, this.state.author).then(
+            res => this.setState({books: res.data.items})
+        ).catch(
+            err => console.log(err)
+        )
+
+        console.log(this.state);
     }
 
     render() {
@@ -54,6 +63,32 @@ class Search extends Component {
                         Search!
                     </FormBtn>
                 </form>
+                <SearchResult>
+                    {this.state.books.length ? (
+                        <Container>
+                            {this.state.books.map(book => {
+                                console.log(book.volumeInfo.categories);
+                                return (
+                                    <Row>
+                                        <Col size="sm-4">
+                                            <img src={book.volumeInfo.imageLinks?book.volumeInfo.imageLinks.thumbnail:""} alt={book.volumeInfo.title}></img>
+                                        </Col>
+                                        <Col size="sm-8">
+                                            <ul>
+                                                <li>{book.volumeInfo.title}</li>
+                                                <li>{book.volumeInfo.authors}</li>
+                                                <li>{book.volumeInfo.description}</li>
+                                            </ul>
+                                            <button>Save me</button>
+                                        </Col>
+                                    </Row>
+                                );
+                            })}
+                        </Container>
+                    ) : (
+                        <h3>No results to display</h3>
+                    )}
+                </SearchResult>
             </Container>
         )
     }
