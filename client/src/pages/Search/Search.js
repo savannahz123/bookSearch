@@ -65,6 +65,7 @@ class Search extends Component {
                     {(this.state.books && this.state.books.length) ? (
                         <Container>
                             {this.state.books.map(book => {
+                                console.log(book);
                                 return (
                                     <Row>
                                         <Col size="sm-4">
@@ -75,6 +76,7 @@ class Search extends Component {
                                                 <li>{book.volumeInfo.title}</li>
                                                 <li>{book.volumeInfo.authors}</li>
                                                 <li>{book.volumeInfo.description}</li>
+                                                <li><a href={book.volumeInfo.previewLink}>Preview</a></li>
                                             </ul>
                                             <button>Save me</button>
                                         </Col>
