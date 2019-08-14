@@ -64,7 +64,7 @@ class Search extends Component {
                     </FormBtn>
                 </form>
                 <SearchResult>
-                    {this.state.books.length ? (
+                    {(this.state.books && this.state.books.length) ? (
                         <Container>
                             {this.state.books.map(book => {
                                 console.log(book.volumeInfo.categories);
