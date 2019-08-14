@@ -33,8 +33,6 @@ class Search extends Component {
         ).catch(
             err => console.log(err)
         )
-
-        console.log(this.state);
     }
 
     render() {
@@ -67,7 +65,6 @@ class Search extends Component {
                     {(this.state.books && this.state.books.length) ? (
                         <Container>
                             {this.state.books.map(book => {
-                                console.log(book.volumeInfo.categories);
                                 return (
                                     <Row>
                                         <Col size="sm-4">
